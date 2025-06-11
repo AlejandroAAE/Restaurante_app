@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Empleado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Editar Empleado</h1>
+
+        <form id="edit-user-form" action="{{ url_for('edit_user', id=empleado.id) }}" method="POST" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <label for="nombre_usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" value="{{ empleado.nombre_usuario }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="Dejar en blanco para mantener la contraseña actual">
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ empleado.nombre }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="rango" class="form-label">Rango</label>
+                <select class="form-control" id="rango" name="rango" required>
+                    <option value="camarero" {% if empleado.rango == 'camarero' %}selected{% endif %}>Camarero</option>
+                    <option value="cocina" {% if empleado.rango == 'cocina' %}selected{% endif %}>Cocina</option>
+                    <option value="jefe" {% if empleado.rango == 'jefe' %}selected{% endif %}>Jefe</option>
+                    <option value="encargado" {% if empleado.rango == 'encargado' %}selected{% endif %}>Encargado</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <p>Días trabajados:</p>
+                <!-- Lunes -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="lunes" id="lunes" value="1" {% if empleado['dias']['lunes'] %}checked{% endif %}>
+                    <label class="form-check-label" for="lunes">Lunes</label>
+                    <input type="time" class="form-control" id="hora_inicio_lunes" name="hora_inicio_lunes" value="{{ empleado['horas_inicio']['lunes'] }}">
+                    <input type="time" class="form-control" id="hora_fin_lunes" name="hora_fin_lunes" value="{{ empleado['horas_fin']['lunes'] }}">
+                </div>
+                <!-- Martes -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="martes" id="martes" value="1" {% if empleado['dias']['martes'] %}checked{% endif %}>
+                    <label class="form-check-label" for="martes">Martes</label>
+                    <input type="time" class="form-control" id="hora_inicio_martes" name="hora_inicio_martes" value="{{ empleado['horas_inicio']['martes'] }}">
+                    <input type="time" class="form-control" id="hora_fin_martes" name="hora_fin_martes" value="{{ empleado['horas_fin']['martes'] }}">
+                </div>
+                <!-- Miércoles -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="miercoles" id="miercoles" value="1" {% if empleado['dias']['miercoles'] %}checked{% endif %}>
+                    <label class="form-check-label" for="miercoles">Miércoles</label>
+                    <input type="time" class="form-control" id="hora_inicio_miercoles" name="hora_inicio_miercoles" value="{{ empleado['horas_inicio']['miercoles'] }}">
+                    <input type="time" class="form-control" id="hora_fin_miercoles" name="hora_fin_miercoles" value="{{ empleado['horas_fin']['miercoles'] }}">
+                </div>
+                <!-- Jueves -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="jueves" id="jueves" value="1" {% if empleado['dias']['jueves'] %}checked{% endif %}>
+                    <label class="form-check-label" for="jueves">Jueves</label>
+                    <input type="time" class="form-control" id="hora_inicio_jueves" name="hora_inicio_jueves" value="{{ empleado['horas_inicio']['jueves'] }}">
+                    <input type="time" class="form-control" id="hora_fin_jueves" name="hora_fin_jueves" value="{{ empleado['horas_fin']['jueves'] }}">
+                </div>
+                <!-- Viernes -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="viernes" id="viernes" value="1" {% if empleado['dias']['viernes'] %}checked{% endif %}>
+                    <label class="form-check-label" for="viernes">Viernes</label>
+                    <input type="time" class="form-control" id="hora_inicio_viernes" name="hora_inicio_viernes" value="{{ empleado['horas_inicio']['viernes'] }}">
+                    <input type="time" class="form-control" id="hora_fin_viernes" name="hora_fin_viernes" value="{{ empleado['horas_fin']['viernes'] }}">
+                </div>
+                <!-- Sábado -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="sabado" id="sabado" value="1" {% if empleado['dias']['sabado'] %}checked{% endif %}>
+                    <label class="form-check-label" for="sabado">Sábado</label>
+                    <input type="time" class="form-control" id="hora_inicio_sabado" name="hora_inicio_sabado" value="{{ empleado['horas_inicio']['sabado'] }}">
+                    <input type="time" class="form-control" id="hora_fin_sabado" name="hora_fin_sabado" value="{{ empleado['horas_fin']['sabado'] }}">
+                </div>
+                <!-- Domingo -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="domingo" id="domingo" value="1" {% if empleado['dias']['domingo'] %}checked{% endif %}>
+                    <label class="form-check-label" for="domingo">Domingo</label>
+                    <input type="time" class="form-control" id="hora_inicio_domingo" name="hora_inicio_domingo" value="{{ empleado['horas_inicio']['domingo'] }}">
+                    <input type="time" class="form-control" id="hora_fin_domingo" name="hora_fin_domingo" value="{{ empleado['horas_fin']['domingo'] }}">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ url_for('admin_empleados') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateForm() {
+            const days = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+
+            for (const day of days) {
+                const dayCheckbox = document.getElementById(day);
+                const horaInicio = document.getElementById(`hora_inicio_${day}`);
+                const horaFin = document.getElementById(`hora_fin_${day}`);
+
+                if (dayCheckbox.checked) {
+                    if (!horaInicio.value || !horaFin.value) {
+                        alert(`Por favor, completa las horas de inicio y fin para ${day}.`);
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

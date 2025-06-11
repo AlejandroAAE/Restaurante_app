@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets Generados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Tickets Generados</h1>
+
+        <!-- Mostrar una tabla por cada mesa -->
+        {% for mesa, platos in mesas_tickets.items() %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2 class="text-center">Mesa {{ mesa }}</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Plato</th>
+                            <th>Cantidad</th>
+                            <th>Precio Unitario</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for plato in platos %}
+                        <tr>
+                            <td>{{ plato[1] }}</td>
+                            <td>{{ plato[2] }}</td>
+                            <td>€{{ plato[3] }}</td>
+                            <td>€{{ plato[3] * plato[2] }}</td>
+                            <td>
+                                <form action="{{ url_for('eliminar_plato_ticket') }}" method="POST" style="display:inline;">
+                                    <input type="hidden" name="ticket_id" value="{{ plato[5] }}">
+                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <h4 class="text-right">Total: €{{ totales_mesas[mesa] }}</h4>
+            </div>
+         <div class="card-footer text-right">
+            <form action="{{ url_for('eliminar_todos_tickets_mesa') }}" method="POST" style="display:inline;">
+                <input type="hidden" name="mesa" value="{{ mesa }}">
+                <button type="submit" class="btn btn-danger">Eliminar Todos los Platos</button>
+            </form>
+            <!-- Botón para imprimir el ticket -->
+            <form action="{{ url_for('imprimir_ticket_mesa', mesa=mesa) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn btn-primary">Imprimir Ticket</button>
+            </form>
+        </div>
+        {% endfor %}
+
+        <!-- Botón para volver atrás -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('user_page', user_id=session['user_id']) }}" class="btn btn-secondary">Volver Atrás</a>
+        </div>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    </div>
+</body>
+</html>

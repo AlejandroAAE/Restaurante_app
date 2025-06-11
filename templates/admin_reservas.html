@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Reservas</h1>
+
+
+        <!-- Botón de Volver -->
+        {% if session['rango'] == 'jefe' %}
+            <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Volver</a>
+        {% elif session['rango'] in ['encargado', 'camarero'] %}
+            <a href="{{ url_for('user_page', user_id=user_id) }}" class="btn btn-secondary">Volver</a>
+        {% endif %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Número de Personas</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Zona</th>
+                    <th>Confirmada</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.nombre_cliente }}</td>
+                        <td>{{ reserva.email }}</td>
+                        <td>{{ reserva.numero_personas }}</td>
+                        <td>{{ reserva.fecha }}</td>
+                        <td>{{ reserva.hora }}</td>
+                        <td>{{ reserva.zona }}</td>
+                        <td>{{ 'Sí' if reserva.confirmada else 'No' }}</td>
+                        <td>
+                            {% if not reserva.confirmada and session['rango'] == 'jefe' %}
+                                <form method="POST" action="{{ url_for('confirmar_reserva', reserva_id=reserva.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-success">Confirmar</button>
+                                </form>
+                            {% endif %}
+                            {% if session['rango'] in ['jefe', 'encargado', 'camarero'] %}
+                                <form method="POST" action="{{ url_for('cancelar_reserva', reserva_id=reserva.id) }}" style="display: inline;">
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de que quieres cancelar esta reserva?')">Cancelar</button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

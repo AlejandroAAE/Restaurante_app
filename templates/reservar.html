@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienvenido a {{ restaurant_name }}, donde disfrutarás de la mejor comida. Explora nuestro menú y reserva ahora.">
+    <meta name="keywords" content="restaurante, menú, comida, {{ restaurant_name }}">
+    <title>{% block title %}{{ restaurant_name }}{% endblock %} Reservar Mesas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('dynamic_css') }}">
+</head>
+<body>
+
+    <div class="container mt-4">
+        <h1 class="text-center">Reservar Mesa</h1>
+
+        <form method="POST" action="{{ url_for('reservar') }}">
+            <div class="form-group">
+                <label for="nombre_cliente">Nombre</label>
+                <input type="text" class="form-control" id="nombre_cliente" name="nombre_cliente" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="numero_personas">Número de Personas</label>
+                <input type="number" class="form-control" id="numero_personas" name="numero_personas" required>
+            </div>
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" required>
+            </div>
+            <div class="form-group">
+                <label for="hora">Hora</label>
+                <input type="time" class="form-control" id="hora" name="hora" required>
+            </div>
+            <!--Deshabilitar Zona Exterior-->
+
+            <div class="form-group">
+                <select name="zona" class="form-control" required>
+                <option value="interior">Interior</option>
+                {% if zona_exterior_habilitada %}
+                    <option value="exterior">Exterior</option>
+                {% endif %}
+            </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Reservar</button>
+            <a href="{{ url_for('home') }}">Volver</a>
+        </form>
+    </div>
+    <!-- Denegada-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'error' %}
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lo sentimos...',
+                            text: '{{ message }}',
+                            confirmButtonText: 'Entendido'
+                        });
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    });
+</script>
+    <!-- Aceptada-->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == 'success' %}
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Reserva confirmada!',
+                            text: '{{ message }}',
+                            confirmButtonText: 'Aceptar'
+                        });
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    });
+</script>
+
+</body>
+</html>

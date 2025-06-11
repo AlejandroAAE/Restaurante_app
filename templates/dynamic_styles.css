@@ -1,0 +1,127 @@
+
+/* main.css */
+.card-img-top {
+    max-width: 100%;
+    height: auto; /* Mantén la proporción */
+    max-height: 200px; /* Establece un límite máximo para la altura */
+}
+
+.content {
+    position: relative;
+    text-align: center;
+    padding: 50px;
+}
+
+/* Contenedor del mapa */
+.map-container {
+    width: 50%; /* Ajusta el ancho según tus necesidades */
+    margin: 0 auto; /* Centra el mapa horizontalmente */
+    overflow: hidden; /* Evita desbordamientos */
+}
+
+.google-map {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 300px; /* Altura fija */
+    border: none; /* Elimina el borde del iframe */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+}
+
+
+h1 {
+    font-size: 3em;
+    color: #DAA520; /* Dorado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    font-size: 1.2em;
+    color: #555;
+}
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+}
+/* Aumentar el tamaño del visor del carrusel */
+#localCarousel .carousel-inner {
+    height: 800px; /* Puedes ajustar esta altura según tus necesidades */
+}
+
+#localCarousel .carousel-item img {
+    height: 100%; /* Ajusta la altura para que las imágenes se adapten al contenedor */
+    width: 100%; /* Asegúrate de que las imágenes se ajusten al ancho del contenedor */
+    object-fit: cover; /* Hace que las imágenes se ajusten al contenedor sin distorsionarse */
+}
+body {
+    background-image: url({{ background_url }}); /* Usar la variable correcta */
+    background-size: cover;
+    background-position: center;
+    font-family: {{ typography }}, sans-serif; /* Aplicar la tipografía */
+}
+
+/* Estilos específicos para textos */
+.bienvenida {
+    color: {{ color_bienvenida }};
+}
+
+.direccion {
+    color: {{ color_direccion }};
+}
+
+.horario {
+    color: {{ color_horario }};
+}
+
+.telefono {
+    color: {{ color_telefono }};
+}
+
+.custom-button-container {
+    width: 100%; /* Ocupa todo el ancho */
+    display: flex; /* Flexbox para organizar elementos */
+    align-items: center; /* Centrar verticalmente */
+    justify-content: space-between; /* Espacio entre el texto y el logo */
+    padding: 10px 20px; /* Padding para mejorar la apariencia */
+    background-color: {{ color_boton }}; /* Color del botón */
+    color: #fff; /* Texto blanco */
+    font-family: {{ typography }}, sans-serif; /* Tipografía personalizable */
+}
+
+.custom-button {
+    text-decoration: none; /* Eliminar subrayado del enlace */
+    color: inherit; /* Heredar el color del contenedor */
+    font-size: 24px; /* Tamaño del texto */
+    margin-right: auto; /* Alinear el texto a la izquierda */
+}
+
+.logo {
+    height: 50px; /* Altura del logo */
+    width: auto; /* Mantener proporciones */
+    margin-left: 10px; /* Espacio entre el texto y el logo */
+}
+.custom-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.custom-button-image img {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.custom-button-image img:hover {
+    transform: scale(1.1);
+}
+.carousel-item img {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+}
+
+/* Clase personalizada para aumentar el tamaño del texto */
+.menu-item {
+    font-size: 2rem; /* Cambia este valor según el tamaño deseado */
+    font-weight: bold; /* Esto hace que las letras sean negritas */
+}

@@ -1,0 +1,128 @@
+2025-02-28 18:44:13,223 - main - ERROR - Error en realizar_pedido: type object 'datetime.datetime' has no attribute 'datetime'
+Error en realizar_pedido: type object 'datetime.datetime' has no attribute 'datetime'
+2025-02-28 18:44:25,056 - main - ERROR - Error en realizar_pedido: type object 'datetime.datetime' has no attribute 'datetime'
+Error en realizar_pedido: type object 'datetime.datetime' has no attribute 'datetime'
+2025-02-28 18:45:27,202 - main - ERROR - Error en realizar_pedido: (sqlite3.OperationalError) table Ticket has no column named precio
+[SQL: 
+                            INSERT INTO Ticket (mesa, plato_id, plato_nombre, cantidad, precio, timestamp)
+                            VALUES (?, ?, ?, ?, ?, ?)
+                        ]
+[parameters: ('6', 7, 'principal', 1, 11.0, datetime.datetime(2025, 2, 28, 18, 45, 27, 201360))]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error en realizar_pedido: (sqlite3.OperationalError) table Ticket has no column named precio
+[SQL: 
+                            INSERT INTO Ticket (mesa, plato_id, plato_nombre, cantidad, precio, timestamp)
+                            VALUES (?, ?, ?, ?, ?, ?)
+                        ]
+[parameters: ('6', 7, 'principal', 1, 11.0, datetime.datetime(2025, 2, 28, 18, 45, 27, 201360))]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 18:45:31,224 - main - ERROR - Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 18:45:32,310 - main - ERROR - Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 18:45:33,355 - main - ERROR - Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 18:45:33,713 - main - ERROR - Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 18:45:34,087 - main - ERROR - Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 19:15:27,266 - main - ERROR - Error en realizar_pedido: (sqlite3.OperationalError) table Ticket has no column named precio
+[SQL: 
+                            INSERT INTO Ticket (mesa, plato_id, plato_nombre, cantidad, precio, timestamp)
+                            VALUES (?, ?, ?, ?, ?, ?)
+                        ]
+[parameters: ('1', 20, '0', 1, 22.0, datetime.datetime(2025, 2, 28, 19, 15, 27, 265482))]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error en realizar_pedido: (sqlite3.OperationalError) table Ticket has no column named precio
+[SQL: 
+                            INSERT INTO Ticket (mesa, plato_id, plato_nombre, cantidad, precio, timestamp)
+                            VALUES (?, ?, ?, ?, ?, ?)
+                        ]
+[parameters: ('1', 20, '0', 1, 22.0, datetime.datetime(2025, 2, 28, 19, 15, 27, 265482))]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-28 19:15:33,648 - main - ERROR - Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+Error al actualizar estado: (sqlite3.OperationalError) no such column: mesa_id
+[SQL: 
+                        UPDATE Pedidos
+                        SET estado = ?
+                        WHERE mesa_id = ?
+                    ]
+[parameters: ('Listo', '6')]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)

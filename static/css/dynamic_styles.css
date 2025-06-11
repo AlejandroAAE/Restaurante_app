@@ -1,0 +1,10 @@
+/* Cambiar la imagen de fondo */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: {{ background }}; /* Aquí se inserta el fondo dinámico */
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    position: relative;
+}

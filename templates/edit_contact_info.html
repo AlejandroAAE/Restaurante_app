@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Información de Contacto</title>
+    <link href="{{ bootstrap_css }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Editar Información de Contacto</h1>
+        <form method="POST" action="{{ url_for('edit_contact_info') }}">
+            <!-- Dirección -->
+            <div class="mb-3">
+                <label for="direccion" class="form-label">Dirección:</label>
+                <input type="text" class="form-control" id="direccion" name="direccion" value="{{ direccion }}" required>
+            </div>
+
+            <!-- Horario -->
+            <div class="mb-3">
+                <label for="horario" class="form-label">Horario:</label>
+                <input type="text" class="form-control" id="horario" name="horario" value="{{ horario }}" required>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="mb-3">
+                <label for="telefono" class="form-label">Teléfono:</label>
+                <input type="text" class="form-control" id="telefono" name="telefono" value="{{ telefono }}" required>
+            </div>
+
+            <!-- Tipografía -->
+            <div class="mb-3">
+                <label for="typography" class="form-label">Tipografía:</label>
+                <input type="text" class="form-control" id="typography" name="typography" value="{{ typography }}" required>
+                <small class="form-text text-muted">Ingresa el nombre de la tipografía (por ejemplo, Arial, Times New Roman).</small>
+            </div>
+
+            <!-- Colores -->
+            <div class="mb-3">
+                <label for="color_bienvenida" class="form-label">Color del Mensaje de Bienvenida:</label>
+                <input type="color" class="form-control form-control-color" id="color_bienvenida" name="color_bienvenida" value="{{ color_bienvenida }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="color_direccion" class="form-label">Color de la Dirección:</label>
+                <input type="color" class="form-control form-control-color" id="color_direccion" name="color_direccion" value="{{ color_direccion }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="color_horario" class="form-label">Color del Horario:</label>
+                <input type="color" class="form-control form-control-color" id="color_horario" name="color_horario" value="{{ color_horario }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="color_telefono" class="form-label">Color del Teléfono:</label>
+                <input type="color" class="form-control form-control-color" id="color_telefono" name="color_telefono" value="{{ color_telefono }}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Volver Atrás</a>
+</body>
+</html>

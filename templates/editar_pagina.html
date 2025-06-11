@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Editar Página de Menú</h2>
+
+<form method="POST">
+    <!-- Título y precio del menú -->
+    <div class="mb-3">
+        <label for="tipo_menu" class="form-label">Tipo de Menú</label>
+        <input type="text" class="form-control" id="tipo_menu" name="tipo_menu" value="{{ pagina.titulo }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="precio" class="form-label">Precio del Menú (€)</label>
+        <input type="number" class="form-control" id="precio" name="precio" step="0.01" value="{{ pagina.precio }}" required>
+    </div>
+
+    <!-- Sección de Entrantes -->
+    <h3>Entrantes</h3>
+    <table class="table">
+        <tbody>
+            {% for plato in platos_entrantes %}
+            <tr>
+                <td>{{ plato.nombre }} ({{ plato.precio }} €)</td>
+                <td>
+                    <input type="checkbox" name="platos_entrante" value="{{ plato.id }}"
+                    {% if plato.id in platos_seleccionados.entrante %}checked{% endif %}>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Sección de Principales -->
+    <h3>Principales</h3>
+    <table class="table">
+        <tbody>
+            {% for plato in platos_principales %}
+            <tr>
+                <td>{{ plato.nombre }} ({{ plato.precio }} €)</td>
+                <td>
+                    <input type="checkbox" name="platos_principal" value="{{ plato.id }}"
+                    {% if plato.id in platos_seleccionados.principal %}checked{% endif %}>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Sección de Postres -->
+    <h3>Postres</h3>
+    <table class="table">
+        <tbody>
+            {% for plato in platos_postres %}
+            <tr>
+                <td>{{ plato.nombre }} ({{ plato.precio }} €)</td>
+                <td>
+                    <input type="checkbox" name="platos_postre" value="{{ plato.id }}"
+                    {% if plato.id in platos_seleccionados.postre %}checked{% endif %}>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Sección de Bebidas -->
+    <h3>Bebidas</h3>
+    <table class="table">
+        <tbody>
+            {% for plato in platos_bebidas %}
+            <tr>
+                <td>{{ plato.nombre }} ({{ plato.precio }} €)</td>
+                <td>
+                    <input type="checkbox" name="platos_bebida" value="{{ plato.id }}"
+                    {% if plato.id in platos_seleccionados.bebida %}checked{% endif %}>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Botones -->
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+    <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

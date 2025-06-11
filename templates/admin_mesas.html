@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar y Configurar Mesas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Administrar y Configurar Mesas</h1>
+        <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Volver</a>
+
+        <!-- Formulario para configurar mesas -->
+        <form method="POST" action="{{ url_for('admin_mesas') }}">
+            <h3>Mesas en el Interior</h3>
+            {% for i in range(6) %}
+                <div class="mb-3">
+                    <label for="mesa_interior_{{ i }}" class="form-label">Número de mesas de {{ (i + 1) * 2 }} personas en el interior:</label>
+                    <input type="number" name="mesa_interior_{{ i }}" id="mesa_interior_{{ i }}" class="form-control" min="0" required value="{{ mesas_interior[(i + 1) * 2] }}">
+                </div>
+            {% endfor %}
+
+            <h3>Mesas en el Exterior</h3>
+            <div class="mb-3">
+                <label for="zona_exterior_habilitada" class="form-label">Habilitar zona exterior:</label>
+                <select name="zona_exterior_habilitada" id="zona_exterior_habilitada" class="form-control">
+                    <option value="1">Habilitada</option>
+                    <option value="0">Deshabilitada</option>
+                </select>
+            </div>
+            {% for i in range(6) %}
+                <div class="mb-3">
+                    <label for="mesa_exterior_{{ i }}" class="form-label">Número de mesas de {{ (i + 1) * 2 }} personas en el exterior:</label>
+                    <input type="number" name="mesa_exterior_{{ i }}" id="mesa_exterior_{{ i }}" class="form-control" min="0" required value="{{ mesas_exterior[(i + 1) * 2] }}">
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary">Guardar Configuración</button>
+        </form>
+
+        <!-- Tabla de mesas existentes -->
+        <h2 class="mt-5">Mesas Actuales</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Zona</th>
+                    <th>Capacidad</th>
+                    <th>Disponible</th>
+                    <th>Zona Habilitada</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mesa in mesas %}
+                    <tr>
+                        <td>{{ mesa.id }}</td>
+                        <td>{{ mesa.zona }}</td>
+                        <td>{{ mesa.capacidad }}</td>
+                        <td>{{ 'Sí' if mesa.disponible else 'No' }}</td>
+                        <td>{{ 'Sí' if mesa.zona_habilitada else 'No' }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center">No hay mesas registradas.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

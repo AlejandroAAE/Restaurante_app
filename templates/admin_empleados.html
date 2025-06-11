@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Empleados</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Gestión de Empleados</h1>
+<h2 class="mt-4">Empleados</h2>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Rango</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+            <th>Domingo</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for empleado in empleados %}
+        <tr>
+            <td>{{ empleado.id }}</td>
+            <td>{{ empleado.nombre_usuario }}</td>
+            <td>{{ empleado.nombre }}</td>
+            <td>{{ empleado.rango }}</td>
+            <td>
+                {% if empleado.dias['lunes'] %}
+                   ({{ empleado.horas_inicio['lunes'] }} - {% if empleado.horas_fin['lunes'] %}{{ empleado.horas_fin['lunes'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                {% if empleado.dias['martes'] %}
+                    ({{ empleado.horas_inicio['martes'] }} - {% if empleado.horas_fin['martes'] %}{{ empleado.horas_fin['martes'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                {% if empleado.dias['miercoles'] %}
+                    ({{ empleado.horas_inicio['miercoles'] }} - {% if empleado.horas_fin['miercoles'] %}{{ empleado.horas_fin['miercoles'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                {% if empleado.dias['jueves'] %}
+                    ({{ empleado.horas_inicio['jueves'] }} - {% if empleado.horas_fin['jueves'] %}{{ empleado.horas_fin['jueves'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                {% if empleado.dias['viernes'] %}
+                    ({{ empleado.horas_inicio['viernes'] }} - {% if empleado.horas_fin['viernes'] %}{{ empleado.horas_fin['viernes'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                {% if empleado.dias['sabado'] %}
+                    ({{ empleado.horas_inicio['sabado'] }} - {% if empleado.horas_fin['sabado'] %}{{ empleado.horas_fin['sabado'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                {% if empleado.dias['domingo'] %}
+                    ({{ empleado.horas_inicio['domingo'] }} - {% if empleado.horas_fin['domingo'] %}{{ empleado.horas_fin['domingo'] }}{% else %}No especificado{% endif %})
+                {% else %}
+                    No trabaja
+                {% endif %}
+            </td>
+            <td>
+                <form action="/admin_interface/edit_user/{{ empleado.id }}" method="GET" style="display:inline;">
+                    <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+                </form>
+                <form action="/admin_interface/delete_user/{{ empleado.id }}" method="POST" style="display:inline;">
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este empleado?');">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+
+
+        <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Volver Atrás</a>
+
+        <h2>Añadir Empleado</h2>
+        <form id="add-user-form" action="{{ url_for('add_user') }}" method="POST" onsubmit="return validateForm()">
+            <div class="mb-3">
+                <label for="nombre_usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="nombre_usuario" name="nombre_usuario" required>
+            </div>
+            <div class="mb-3">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
+            </div>
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" required>
+            </div>
+            <div class="mb-3">
+                <label for="rango" class="form-label">Rango</label>
+                <select class="form-control" id="rango" name="rango" required>
+                    <option value="camarero" selected>Camarero</option>
+                    <option value="cocina">Cocina</option>
+                    <option value="jefe">Jefe</option>
+                    <option value="encargado">Encargado</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <p>Días trabajados:</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="lunes" id="lunes" value="1">
+                    <label class="form-check-label" for="lunes">Lunes</label>
+                    <input type="time" class="form-control" id="hora_inicio_lunes" name="hora_inicio_lunes">
+                    <input type="time" class="form-control" id="hora_fin_lunes" name="hora_fin_lunes">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="martes" id="martes" value="1">
+                    <label class="form-check-label" for="martes">Martes</label>
+                    <input type="time" class="form-control" id="hora_inicio_martes" name="hora_inicio_martes">
+                    <input type="time" class="form-control" id="hora_fin_martes" name="hora_fin_martes">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="miercoles" id="miercoles" value="1">
+                    <label class="form-check-label" for="miercoles">Miércoles</label>
+                    <input type="time" class="form-control" id="hora_inicio_miercoles" name="hora_inicio_miercoles">
+                    <input type="time" class="form-control" id="hora_fin_miercoles" name="hora_fin_miercoles">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="jueves" id="jueves" value="1">
+                    <label class="form-check-label" for="jueves">Jueves</label>
+                    <input type="time" class="form-control" id="hora_inicio_jueves" name="hora_inicio_jueves">
+                    <input type="time" class="form-control" id="hora_fin_jueves" name="hora_fin_jueves">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="viernes" id="viernes" value="1">
+                    <label class="form-check-label" for="viernes">Viernes</label>
+                    <input type="time" class="form-control" id="hora_inicio_viernes" name="hora_inicio_viernes">
+                    <input type="time" class="form-control" id="hora_fin_viernes" name="hora_fin_viernes">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="sabado" id="sabado" value="1">
+                    <label class="form-check-label" for="sabado">Sábado</label>
+                    <input type="time" class="form-control" id="hora_inicio_sabado" name="hora_inicio_sabado">
+                    <input type="time" class="form-control" id="hora_fin_sabado" name="hora_fin_sabado">
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="domingo" id="domingo" value="1">
+                    <label class="form-check-label" for="domingo">Domingo</label>
+                    <input type="time" class="form-control" id="hora_inicio_domingo" name="hora_inicio_domingo">
+                    <input type="time" class="form-control" id="hora_fin_domingo" name="hora_fin_domingo">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Volver Atrás</a>
+        </form>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

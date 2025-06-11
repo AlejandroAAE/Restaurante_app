@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Platos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Gestión de Platos</h1>
+        <a href="{{ url_for('add_plato') }}" class="btn btn-success mb-3">Añadir Plato</a>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio (€)</th>
+                    <th>Ingredientes</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for plato in platos %}
+                <tr>
+                    <td>{{ plato.id }}</td>
+                    <td>{{ plato.nombre }}</td>
+                    <td>{{ plato.descripcion }}</td>
+                    <td>{{ plato.precio }}</td>
+                    <td>
+                        {% if plato.ingredientes %}
+                            {{ plato.ingredientes }}
+                        {% else %}
+                            Sin ingredientes
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ url_for('edit_plato', id=plato.id) }}" class="btn btn-primary btn-sm">Editar</a>
+                        <form action="{{ url_for('delete_plato', id=plato.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary">Volver</a>
+    </div>
+</body>
+</html>

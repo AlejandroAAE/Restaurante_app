@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Plato</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Editar Plato</h1>
+        <form action="{{ url_for('edit_plato', id=plato.id) }}" method="POST" enctype="multipart/form-data">
+            <!-- Nombre -->
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="nombre" name="nombre" value="{{ plato.nombre }}" required>
+            </div>
+
+            <!-- Categoría -->
+<div class="mb-3">
+    <label for="categoria" class="form-label">Categoría:</label>
+    <select class="form-control" id="categoria" name="categoria" required>
+        <option value="entrante" {% if plato.categoria == 'entrante' %}selected{% endif %}>Entrante</option>
+        <option value="principal" {% if plato.categoria == 'principal' %}selected{% endif %}>Principal</option>
+        <option value="postre" {% if plato.categoria == 'postre' %}selected{% endif %}>Postre</option>
+        <option value="bebida" {% if plato.categoria == 'bebida' %}selected{% endif %}>Bebida</option>
+    </select>
+</div>
+
+            <!-- Descripción -->
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ plato.descripcion }}</textarea>
+            </div>
+
+            <!-- Precio -->
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio (€)</label>
+                <input type="number" class="form-control" id="precio" name="precio" value="{{ plato.precio }}" step="0.01" required>
+            </div>
+
+            <!-- Ingredientes existentes -->
+            <div class="mb-3">
+                <label class="form-label">Seleccionar Ingredientes y Cantidad</label>
+                <div>
+                    {% for ingrediente in ingredientes %}
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="ingrediente_{{ ingrediente.id }}" name="ingrediente_id" value="{{ ingrediente.id }}"
+                            {% if ingrediente.id in ingredientes_actuales %}checked{% endif %}>
+                        <label class="form-check-label" for="ingrediente_{{ ingrediente.id }}">
+                            {{ ingrediente.nombre }} (Cantidad disponible: {{ ingrediente.cantidad }})
+                        </label>
+                        <div class="input-group mt-1">
+                            <input type="number" class="form-control" name="cantidad_{{ ingrediente.id }}" placeholder="Cantidad requerida" min="1"
+                                value="{{ ingredientes_actuales.get(ingrediente.id, 1) }}">
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Campo oculto para almacenar la URL de la imagen actual -->
+            <input type="hidden" name="imagen_actual" value="{{ plato.image_url }}">
+
+            <!-- Campo para subir una nueva imagen -->
+            <div class="mb-3">
+                <label for="imagen" class="form-label">Imagen</label>
+                <input type="file" class="form-control" id="imagen" name="imagen">
+                {% if plato.image_url %}
+                <div class="mt-2">
+                    <img src="{{ plato.image_url }}" alt="{{ plato.nombre }}" class="img-thumbnail" style="max-width: 200px;">
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Botones -->
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            <a href="{{ url_for('admin_platos') }}" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+
+    <!-- Scripts de Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Pedidos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Pedidos Pendientes</h1>
+        {% for mesa, pedidos in mesas_pedidos.items() %}
+        <h2 class="text-center mb-4">Mesa {{ mesa }}</h2>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Usuario</th>
+                        <th>Plato</th>
+                        <th>Cantidad</th>
+                        <th>Estado</th>
+                        <th>Hora de Entrada</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido[0] }}</td>
+                        <td>{{ pedido[1] }}</td>
+                        <td>{{ pedido[2] }}</td>
+                        <td>{{ pedido[3] }}</td>
+                        <td>{{ pedido[4] }}</td>
+                        <td>{{ pedido[6] }}</td>
+                        <td>
+                            <form action="{{ url_for('recibir_pedidos') }}" method="POST" style="display:inline;">
+                                <input type="hidden" name="pedido_id" value="{{ pedido[0] }}">
+                                <select name="nuevo_estado" class="form-control">
+                                    <option value="Pendiente" {% if pedido[4] == 'Pendiente' %}selected{% endif %}>Pendiente</option>
+                                    <option value="En preparación" {% if pedido[4] == 'En preparación' %}selected{% endif %}>En preparación</option>
+                                    <option value="Listo" {% if pedido[4] == 'Listo' %}selected{% endif %}>Listo</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary mt-2">Actualizar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            <form action="{{ url_for('recibir_pedidos') }}" method="POST">
+                                <input type="hidden" name="mesa_id" value="{{ mesa }}">
+                                <input type="hidden" name="nuevo_estado" value="Listo">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endfor %}
+        <div class="text-center mb-4">
+            <a href="{{ url_for('user_page', user_id=session['user_id']) }}" class="btn btn-secondary">Volver Atrás</a>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

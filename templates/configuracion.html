@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h1 class="text-center">Configuración de la Página Principal</h1>
+    <form action="{{ url_for('configuracion') }}" method="POST" enctype="multipart/form-data">
+        <!-- Nombre del Restaurante -->
+        <div class="mb-3">
+            <label for="restaurant_name" class="form-label">Nombre del Restaurante:</label>
+            <input type="text" name="restaurant_name" id="restaurant_name" class="form-control" value="{{ restaurant_name }}" required>
+        </div>
+
+        <!-- Configuración de la impresora -->
+        <div class="mb-3">
+            <label for="usb_vendor_id" class="form-label">Impresora Térmica, USB Vendor ID:</label>
+            <input type="text" name="usb_vendor_id" id="usb_vendor_id" class="form-control" value="{{ usb_vendor_id }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="usb_product_id" class="form-label">Impresora Térmica, USB Product ID:</label>
+            <input type="text" name="usb_product_id" id="usb_product_id" class="form-control" value="{{ usb_product_id }}" required>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="mb-3">
+            <label for="welcome_message" class="form-label">Mensaje de Bienvenida:</label>
+            <textarea name="welcome_message" id="welcome_message" class="form-control" required>{{ welcome_message }}</textarea>
+        </div>
+        <!-- Dirección -->
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" name="direccion" id="direccion" class="form-control" value="{{ direccion }}" required>
+        </div>
+
+        <!-- Horario -->
+        <div class="mb-3">
+            <label for="horario" class="form-label">Horario:</label>
+            <input type="text" name="horario" id="horario" class="form-control" value="{{ horario }}" required>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="text" name="telefono" id="telefono" class="form-control" value="{{ telefono }}" required>
+        </div>
+
+        <!-- Tipografía -->
+        <div class="mb-3">
+            <label for="typography" class="form-label">Tipografía:</label>
+            <input type="text" name="typography" id="typography" class="form-control" value="{{ typography }}" required>
+        </div>
+
+        <!-- Colores -->
+        <div class="mb-3">
+            <label for="color_bienvenida" class="form-label">Color Bienvenida:</label>
+            <input type="color" name="color_bienvenida" id="color_bienvenida" value="{{ color_bienvenida }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="color_direccion" class="form-label">Color Dirección:</label>
+            <input type="color" name="color_direccion" id="color_direccion" value="{{ color_direccion }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="color_horario" class="form-label">Color Horario:</label>
+            <input type="color" name="color_horario" id="color_horario" value="{{ color_horario }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="color_telefono" class="form-label">Color Teléfono:</label>
+            <input type="color" name="color_telefono" id="color_telefono" value="{{ color_telefono }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="color_boton" class="form-label">Color Botón:</label>
+            <input type="color" name="color_boton" id="color_boton" value="{{ color_boton }}" required>
+        </div>
+
+
+        <!-- Fondo -->
+        <div class="mb-3">
+            <label for="background_image" class="form-label">Fondo de la Página:</label>
+            <input type="file" name="background_image" id="background_image" accept="image/*">
+            {% if background_url %}
+            <img src="{{ background_url }}" alt="Fondo Actual" style="max-width: 200px; margin-top: 10px;">
+            {% endif %}
+        </div>
+
+
+
+        <!-- Logo -->
+        <div class="mb-3">
+            <label for="logo_image" class="form-label">Logo del Restaurante:</label>
+            <input type="file" name="logo_image" id="logo_image" accept="image/*">
+            {% if logo_url %}
+            <img src="{{ logo_url }}" alt="Logo Actual" style="max-width: 150px; margin-top: 10px;">
+            {% endif %}
+        </div>
+                <!-- Botón Guardar -->
+        <div class="mb-3">
+            <br>
+            <button type="submit" class="btn btn-primary">Guardar Cambios<br></button>
+
+            <a href="{{ url_for('admin_interface') }}" class="btn btn-secondary"><br>Volver Atrás</a>
+
+        </div>
+        <!-- Imágenes del Local -->
+        <div class="mb-3">
+            <label class="form-label">Imágenes del Local:</label>
+            <div class="row">
+                <input type="file" name="local_image" id="local_image" accept="image/*">
+{% for imagen in imagenes_local %}
+<div class="col-md-3 mb-3">
+    <img src="{{ imagen.url_imagen }}" class="img-fluid" alt="Imagen del Local">
+    <p>ID: {{ imagen.id }}</p>  <!-- Debug: Mostrar el ID -->
+    <form method="POST" action="{{ url_for('eliminar_imagen_local', id=imagen.id) }}">
+        <button type="submit" class="btn btn-danger btn-sm mt-2">Eliminar</button>
+    </form>
+</div>
+{% endfor %}
+            </div>
+        </div>
+
+
+    </form>
+</div>
+{% endblock %}

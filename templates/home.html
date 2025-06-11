@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bienvenido a {{ restaurant_name }}, donde disfrutarás de la mejor comida. Explora nuestro menú y reserva ahora.">
+    <meta name="keywords" content="restaurante, menú, comida, {{ restaurant_name }}">
+    <title>{% block title %}{{ restaurant_name }}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('dynamic_css') }}">
+</head>
+<body>
+{% with messages = get_flashed_messages(with_categories=True) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+    <!-- Barra superior con logo y menús alineados -->
+    <div class="custom-button-container mt-3">
+    <!-- Logo del Restaurante -->
+    <div class="me-3">
+        {% if logo_url %}
+        <a href="{{ url_for('home') }}" class="custom-button-image">
+            <img src="{{ logo_url }}" alt="Logo del Restaurante" class="logo" style="max-width: 200px; max-height: 100px;">
+        </a>
+        {% else %}
+        <a href="{{ url_for('home') }}" class="custom-button">{{ restaurant_name }}</a>
+        {% endif %}
+    </div>
+
+    <!-- Menú de navegación en fila -->
+    <div class="d-flex">
+        {% for pagina in paginas %}
+            <a class="nav-link text-white menu-item mx-3" href="{{ url_for('ver_pagina', id=pagina.id) }}">{{ pagina.titulo }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+
+
+    <div class="container mt-4">
+        <!-- Mensaje de bienvenida -->
+        <h1 class="text-center bienvenida">{{ welcome_message }}</h1>
+
+        <div class="row">
+            {% for plato in platos %}
+                <div class="col-md-3 mb-3">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ plato.image_url or '/static/images/default_plato.jpg' }}" class="card-img-top" alt="Imagen de {{ plato.nombre }}" loading="lazy">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ plato.nombre }}</h5>
+                            <p class="card-text">{{ plato.descripcion }}</p>
+                            <p class="card-text"><strong>Precio:</strong> €{{ plato.precio }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Carrusel de imágenes del local -->
+        <div id="localCarousel" class="carousel slide mt-4" data-ride="carousel" data-interval="3000">
+            <div class="carousel-inner">
+                {% for imagen in imagenes_local %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img src="{{ imagen.url_imagen or '/static/images/default_image.jpg' }}" class="d-block w-100" alt="Imagen del Local">
+                    </div>
+                {% else %}
+                    <div class="carousel-item active">
+                        <img src="/static/images/default_image.jpg" class="d-block w-100" alt="Imagen por defecto">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Reservas -->
+        <div class="text-right mt-4">
+            {% if 'username' in session %}
+                <p>Hola, <strong>{{ session['username'] }}</strong>!</p>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger" aria-label="Cerrar sesión">Cerrar sesión</a>
+
+            {% endif %}
+            <a href="{{ url_for('reservar') }}" class="btn btn-success" aria-label="Reservar mesa">Reservar Mesa</a>
+        </div>
+
+        <!-- Información de contacto -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6 text-center">
+                <p class="direccion"><strong>Dirección:</strong> {{ direccion }}</p>
+                <p class="horario"><strong>Horario:</strong><br>{{ horario }}</p>
+                <p class="telefono"><strong>Teléfono:</strong> {{ telefono }}</p>
+            </div>
+        </div>
+
+        <!-- Barra de sesión -->
+        <div class="text-right mt-4">
+            {% if 'username' in session %}
+                <p>Hola, <strong>{{ session['username'] }}</strong>!</p>
+                <a href="{{ url_for('logout') }}" class="btn btn-danger" aria-label="Cerrar sesión">Cerrar sesión</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn btn-primary" aria-label="Iniciar sesión">Empleados</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

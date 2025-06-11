@@ -1,0 +1,45 @@
+2025-02-24 01:21:33,161 - db - DEBUG - Intentando insertar reserva: Juan Pérez, juan@example.com, 4, 2025-02-25, 19:00, interior, 1
+2025-02-24 01:21:33,162 - db - ERROR - Error al insertar reserva: (sqlite3.OperationalError) table Reservas has no column named mesa_id
+[SQL: 
+                INSERT INTO Reservas (nombre_cliente, email, numero_personas, fecha, hora, zona, mesa_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?)
+            ]
+[parameters: ('Juan Pérez', 'juan@example.com', 4, '2025-02-25', '19:00', 'interior', 1)]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-02-24 01:24:11,488 - db - DEBUG - Intentando insertar reserva: Juan Pérez, juan@example.com, 4, 2025-02-25, 19:00, interior, 1
+2025-02-24 01:24:11,491 - db - INFO - Reserva insertada correctamente.
+2025-02-24 01:33:32,061 - db - DEBUG - Intentando insertar reserva: Juan Pérez, juan@example.com, 4, 2025-02-25, 19:00, interior, 1
+2025-02-24 01:33:32,063 - db - INFO - Reserva insertada correctamente.
+2025-02-24 01:33:32,066 - db - DEBUG - Buscando mesas disponibles para: interior, 2025-02-25, 19:00
+2025-02-24 01:33:32,067 - db - INFO - Mesas disponibles encontradas: 7
+2025-02-24 01:33:32,067 - db - ERROR - Error al obtener mesas disponibles: cannot convert dictionary update sequence element #0 to a sequence
+2025-02-24 01:34:18,549 - db - DEBUG - Intentando insertar reserva: Juan Pérez, juan@example.com, 4, 2025-02-25, 19:00, interior, 1
+2025-02-24 01:34:18,551 - db - INFO - Reserva insertada correctamente.
+2025-02-24 01:34:18,554 - db - DEBUG - Buscando mesas disponibles para: interior, 2025-02-25, 19:00
+2025-02-24 01:34:18,555 - db - INFO - Mesas disponibles encontradas: 14
+2025-02-24 01:34:18,555 - db - ERROR - Error al obtener mesas disponibles: cannot convert dictionary update sequence element #0 to a sequence
+2025-02-24 01:35:01,131 - db - DEBUG - Intentando insertar reserva: Juan Pérez, juan@example.com, 4, 2025-02-25, 19:00, interior, 1
+2025-02-24 01:35:01,133 - db - INFO - Reserva insertada correctamente.
+2025-02-24 01:35:01,137 - db - DEBUG - Buscando mesas disponibles para: interior, 2025-02-25, 19:00
+2025-02-24 01:35:01,137 - db - INFO - Mesas disponibles encontradas: 21
+2025-02-25 18:13:30,039 - db - DEBUG - Buscando mesas disponibles para: interior, 2025-12-12, 15:15
+2025-02-25 18:13:30,040 - db - INFO - Mesas disponibles encontradas: 40
+2025-02-25 18:13:30,040 - db - DEBUG - Intentando insertar reserva: alejandro, alejandro.armengol.e@gmail.com, 10, 2025-12-12, 15:15, interior, 1
+2025-02-25 18:13:30,042 - db - INFO - Reserva insertada correctamente.
+2025-02-25 21:59:35,770 - db - ERROR - Error al obtener mesas disponibles: cannot convert dictionary update sequence element #0 to a sequence
+2025-02-25 22:01:24,059 - db - DEBUG - Intentando insertar reserva: alejandro, alejandro.armengol.e@gmail.com, 2, 1111-11-11, 11:11, interior, 37
+2025-02-25 22:01:24,063 - db - INFO - Reserva insertada correctamente.
+2025-02-25 22:05:41,794 - db - DEBUG - Intentando insertar reserva: alejandro, alejandro.armengol.e@gmail.com, 2, 0002-02-02, 02:02, interior, 37
+2025-02-25 22:05:41,797 - db - INFO - Reserva insertada correctamente.
+2025-02-25 22:10:56,615 - db - DEBUG - Intentando insertar reserva: 23, 22@asd.c, 2, 0001-01-01, 01:01, interior, 37
+2025-02-25 22:10:56,619 - db - INFO - Reserva insertada correctamente.
+2025-02-25 22:14:25,867 - db - DEBUG - Intentando insertar reserva: asd, alejandro.armengol.e@gmail.com, 2, 0005-05-05, 05:05, interior, 37
+2025-02-25 22:14:25,871 - db - INFO - Reserva insertada correctamente.
+2025-02-25 22:16:29,573 - db - DEBUG - Intentando insertar reserva: 2, 22@asd.c, 2, 0005-03-04, 12:03, interior, 37
+2025-02-25 22:16:29,576 - db - INFO - Reserva insertada correctamente.
+2025-02-25 22:18:22,645 - db - DEBUG - Intentando insertar reserva: alejandro, alejandro.armengol.e@gmail.com, 1, 0322-02-23, 12:33, interior, 37
+2025-02-25 22:18:22,648 - db - INFO - Reserva insertada correctamente.
+2025-02-27 12:03:27,846 - db - DEBUG - Intentando insertar reserva: Daniel, alejandro.armengol.e@gmail.com, 6, 0111-11-11, 11:11, interior, 41
+2025-02-27 12:03:27,849 - db - INFO - Reserva insertada correctamente.
+2025-03-02 17:45:49,039 - db - DEBUG - Intentando insertar reserva: alejandro, reserve@gmail.com, 2, 2025-04-03, 13:30, interior, 40
+2025-03-02 17:45:49,042 - db - INFO - Reserva insertada correctamente.

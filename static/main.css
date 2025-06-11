@@ -1,0 +1,39 @@
+
+/* main.css */
+.card-img-top {
+    max-width: 100%;
+    height: auto; /* Mantén la proporción */
+    max-height: 200px; /* Establece un límite máximo para la altura */
+}
+
+.content {
+    position: relative;
+    text-align: center;
+    padding: 50px;
+}
+
+/* Contenedor del mapa */
+.map-container {
+    width: 50%; /* Ajusta el ancho según tus necesidades */
+    margin: 0 auto; /* Centra el mapa horizontalmente */
+    overflow: hidden; /* Evita desbordamientos */
+}
+
+.google-map {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 300px; /* Altura fija */
+    border: none; /* Elimina el borde del iframe */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+}
+
+
+h1 {
+    font-size: 3em;
+    color: #DAA520; /* Dorado */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    font-size: 1.2em;
+    color: #555;
+}

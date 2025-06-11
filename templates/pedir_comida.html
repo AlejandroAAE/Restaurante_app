@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedir Comida</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Pedir Comida - Mesa {{ request.args.get('mesa') }}</h1>
+
+        <!-- Botones para seleccionar platos -->
+        <div class="row">
+            {% for plato in platos %}
+            <div class="col-md-4 mb-4">
+                <button type="button" class="btn btn-primary btn-block" onclick="añadirPedido({{ plato.id }}, '{{ plato.nombre }}', {{ plato.precio }})">
+                    {{ plato.nombre }} - €{{ plato.precio }}
+                </button>
+                <input type="number" id="cantidad_{{ plato.id }}" name="cantidad_{{ plato.id }}" value="1" min="1" class="form-control mt-2">
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Lista de pedidos -->
+        <h2 class="text-center mb-4">Pedidos</h2>
+        <ul class="list-group mb-4" id="lista-pedidos">
+            <!-- Los pedidos se añadirán aquí dinámicamente -->
+        </ul>
+        <h3 class="text-center">Total: €<span id="total-precio">0.00</span></h3>
+
+        <!-- Formulario oculto para enviar el pedido -->
+        <form action="{{ url_for('realizar_pedido') }}" method="POST" id="form-pedido">
+            <!-- Inputs ocultos para cada plato y total -->
+            <div id="inputs-pedidos"></div>
+            <input type="hidden" name="total" id="input-total">
+            <input type="hidden" name="mesa" id="input-mesa" value="{{ request.args.get('mesa') }}">
+            <div class="text-center">
+                <button type="submit" class="btn btn-success">Realizar Pedido</button>
+                <a href="{{ url_for('user_page', user_id=session['user_id']) }}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script para manejar los pedidos -->
+    <script>
+        let pedidos = [];
+        let totalPrecio = 0;
+
+        function añadirPedido(id, nombre, precio) {
+            const cantidad = parseInt(document.getElementById(`cantidad_${id}`).value);
+            const pedidoIndex = pedidos.findIndex(pedido => pedido.id === id);
+
+            if (pedidoIndex === -1) {
+                pedidos.push({ id: id, nombre: nombre, precio: precio, cantidad: cantidad });
+            } else {
+                pedidos[pedidoIndex].cantidad += cantidad;
+            }
+
+            totalPrecio += precio * cantidad;
+            actualizarListaPedidos();
+        }
+
+        function eliminarPedido(id) {
+            const pedidoIndex = pedidos.findIndex(pedido => pedido.id === id);
+            if (pedidoIndex !== -1) {
+                const precioUnitario = pedidos[pedidoIndex].precio;
+                totalPrecio -= precioUnitario * pedidos[pedidoIndex].cantidad;
+                pedidos.splice(pedidoIndex, 1);
+                actualizarListaPedidos();
+            }
+        }
+
+        function actualizarListaPedidos() {
+            const listaPedidos = document.getElementById('lista-pedidos');
+            listaPedidos.innerHTML = '';
+            pedidos.forEach(pedido => {
+                const listItem = document.createElement('li');
+                listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                listItem.textContent = `${pedido.nombre} - €${pedido.precio.toFixed(2)} x ${pedido.cantidad}`;
+                const eliminarBtn = document.createElement('button');
+                eliminarBtn.className = 'btn btn-danger btn-sm';
+                eliminarBtn.textContent = 'Eliminar';
+                eliminarBtn.onclick = () => eliminarPedido(pedido.id);
+                listItem.appendChild(eliminarBtn);
+                listaPedidos.appendChild(listItem);
+            });
+
+            document.getElementById('total-precio').textContent = totalPrecio.toFixed(2);
+
+            const inputsPedidos = document.getElementById('inputs-pedidos');
+            inputsPedidos.innerHTML = '';
+            pedidos.forEach((pedido, index) => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = `pedido_${index + 1}`;
+                input.value = `${pedido.id},${pedido.nombre},${pedido.precio}`;
+                inputsPedidos.appendChild(input);
+
+                const inputCantidad = document.createElement('input');
+                inputCantidad.type = 'hidden';
+                inputCantidad.name = `cantidad_${pedido.id}`;
+                inputCantidad.value = pedido.cantidad;
+                inputsPedidos.appendChild(inputCantidad);
+            });
+
+            document.getElementById('input-total').value = totalPrecio.toFixed(2);
+        }
+    </script>
+</body>
+</html>
