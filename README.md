@@ -30,6 +30,3 @@ cd restaurante_app
 pip install -r requirements.txt
 python main.py
 
-![image](https://github.com/user-attachments/assets/224c8013-acf5-468d-bfae-7c6a3df5ed6d)
-
-
