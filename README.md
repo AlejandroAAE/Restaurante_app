@@ -22,11 +22,3 @@ Aplicación web para la gestión integral de un restaurante: platos, ingrediente
 - Logging y email
 - ESC/POS printer (opcional)
 
-## 📦 Instalación
-
-```bash
-git clone https://github.com/AlejandroAAE/restaurante_app.git
-cd restaurante_app
-pip install -r requirements.txt
-python main.py
-
